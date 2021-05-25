@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Simple Sidebar - Start Bootstrap Template</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="https://blackrockdigital.github.io/startbootstrap-simple-sidebar/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+
+.col-6, .col-sm-4 {
+    background-color: #e3e3e3;
+}
+
+    body {
+  overflow-x: hidden;
+}
+
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+  text-align: center;
+  width: 10rem;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+}
+
+.hovereffect {
+  width: 100%;
+  height: auto;
+  float: left;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  cursor: default;
+  background: #42b078;
+}
+
+.hovereffect .overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  padding: 50px 20px;
+}
+
+.hovereffect img {
+  display: block;
+  position: relative;
+  max-width: none;
+  width: calc(100% + 20px);
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  -webkit-transform: translate3d(-10px,0,0);
+  transform: translate3d(-10px,0,0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.hovereffect:hover img {
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+}
+
+.hovereffect h2 {
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  font-size: 17px;
+  overflow: hidden;
+  padding: 0.5em 0;
+  background-color: transparent;
+}
+
+.hovereffect h2:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  content: '';
+  -webkit-transition: -webkit-transform 0.35s;
+  transition: transform 0.35s;
+  -webkit-transform: translate3d(-100%,0,0);
+  transform: translate3d(-100%,0,0);
+}
+
+.hovereffect:hover h2:after {
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+}
+
+.hovereffect a, .hovereffect p {
+  color: #FFF;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  -webkit-transform: translate3d(100%,0,0);
+  transform: translate3d(100%,0,0);
+}
+
+.hovereffect:hover a, .hovereffect:hover p {
+  opacity: 1;
+  filter: alpha(opacity=100);
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+}
+
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+$(function(){
+    $(".nav a").click(function(e){
+        e.preventDefault(); //To prevent the default anchor tag behaviour
+        var url = this.href;
+        $(".main").load(url);
+    });
+});
+
+</script>
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right min-vh-100" id="sidebar-wrapper">
+      <div class="sidebar-heading">Your Menu</div>
+      <div class="list-group list-group-flush overflow-auto vh-100">
+        <div class="nav">
+          <div class="hovereffect">
+                      <img class="img-responsive" src="{{ user.userprofile.image.url }}" alt="">
+                  <div class="overlay">
+		                  <p><a href="{% url 'core:image-upload' %}">Upload photo</a></p> 
+                      <p><a href="{% url 'core:image-upload' %}">Upload photo</a></p> 
+                  </div>
+          </div>
+          <p>Click on picture to change photo</p>
+          
+          <a href="{% url 'core:orders-list' %}" class="list-group-item list-group-item-action bg-light">Orders List</a>
+          <a href="{% url 'core:orders' %}" class="list-group-item list-group-item-action bg-light">All Orders and Details</a>
+          <a href="{% url 'core:shipping-address-change' %}" class="list-group-item list-group-item-action bg-light">Shipping Address Change</a>
+          <a href="{% url 'core:billing-address-change' %}" class="list-group-item list-group-item-action bg-light">Billing Address Change</a>
+          <a href="{% url 'core:request-refund' %}" class="list-group-item list-group-item-action bg-light">Request Refund</a>
+          <a href="{% url 'core:name-change' %}" class="list-group-item list-group-item-action bg-light">Name Change</a>
+        </div>
+        <a target="_blank" href="{% url 'core:password-change' %}" class="list-group-item list-group-item-action bg-light">Password Change</a>
+        <a target="_blank" href="/accounts/email/" class="list-group-item list-group-item-action bg-light">Email Change</a>
+
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <div class="container-fluid">
+       
+        <div class="main"> 
+          <div class="media">
+              <div class="container-fluid">
+              <h4 style="font-weight:bold;text-align:center">This is your profile, {{ user.first_name }}  {{ user.last_name }}.</h4>
+                <div class="row">
+                  <div class="col-3"><h4>Your username: {{ user.username }}</h4></div>
+                  <div class="col-3"><h4>Your email: {{ user.email }}</h4></div>
+                </div> 
+              </div>
+          </div>
+          <div>
+            <p></p>
+            {% if shipping_address %}
+              <p><strong> Default Shipping address:</strong> {{ shipping_address.street_address }} {{ shipping_address.apartment_address }}, {{ shipping_address.city }}, 
+                {{ shipping_address.country }}, {{ shipping_address.zip }}
+              </p>  
+            {% else %} 
+              <p>You have no <strong>Default Shipping address</strong></p>
+            {% endif %}
+            
+            {% if billing_address %}
+              <p><strong> Default Billing address:</strong> {{ billing_address.street_address }} {{ billing_address.apartment_address }}, {{ billing_address.city }}, 
+              {{ billing_address.country }}, {{ billing_address.zip }}
+            </p>
+            {% else %}
+              <p>You have no <strong>Default Billing address</strong></p>
+            {% endif %}
+          </div>
+        
+        </div>
+      </div>
+
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://blackrockdigital.github.io/startbootstrap-simple-sidebar/vendor/jquery/jquery.min.js"></script>
+  <script src="https://blackrockdigital.github.io/startbootstrap-simple-sidebar/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+{% endblock content %}

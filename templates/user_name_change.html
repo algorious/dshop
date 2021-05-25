@@ -1,0 +1,28 @@
+{# {% extends "base.html" %} #}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container">
+    <form action="/accounts/profile/name-change/" method="POST">
+      <fieldset>
+        <legend>Name change form</legend>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </fieldset>
+    </form>
+</div>
+
+<p> <pre> <a href="{% url 'core:account-profile' %}">    Back to your profile </a> </pre> </p>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% endblock content %}

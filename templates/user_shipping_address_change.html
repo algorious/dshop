@@ -1,0 +1,101 @@
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<!--Main layout-->
+<main class="mt-5 pt-1">
+    <div class="container wow fadeIn">
+
+        <!-- Heading -->
+        <h2 class="my-5 h2 text-center">Shipping address change form</h2>
+
+        <!--Grid row-->
+        <div class="row">
+
+            <!--Grid column-->
+            <div class="col-md-8 mb-4">
+
+                <!--Card-->
+                <div class="card">
+
+                    <!--Card content-->
+                    <form action="/accounts/profile/shipping-address-change/" method="POST" class="card-body">
+                        {% csrf_token %}
+
+                        <h3>New Shipping Address</h3>
+                            <!--address-->
+                            <div class="md-form mb-5">
+                                <label for="address1" class="">Address</label>
+                                <input type="text" class="form-control" id="address1" name="address1" 
+                                    placeholder="1234 Main St">
+                            </div>
+
+                            <!--address-2-->
+                            <div class="md-form mb-5">
+                                <label for="address2" class="">Address 2 (optional)</label>
+                                <input type="text" class="form-control" id="address2" name="address2" 
+                                    placeholder="Apartment or suite">
+                            </div>
+
+                            <!--Grid row-->
+                            <div class="row">
+
+                                <!--Grid column-->
+                                <div class="col-lg-4 col-md-12 mb-4">
+
+                                    <label for="city">City</label>
+                                    <input type="text" class="form-control" id="city" name="city"
+                                        placeholder="City">
+                                    <div class="invalid-feedback">
+                                        City required.
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-4 col-md-12 mb-4">
+
+                                    <label for="country">Country</label>
+
+                                    {{ form.country }}
+                                    <div class="invalid-feedback">
+                                        Please select a valid country.
+                                    </div>
+
+                                </div>
+
+                                <!--Grid column-->
+                                <div class="col-lg-4 col-md-6 mb-4">
+
+                                    <label for="shipping_zip">Zip</label>
+                                    <input type="text" class="form-control" id="country_zip" name="country_zip"
+                                        placeholder="Zip code">
+                                    <!-- {{ form.zip }} -->
+                                    <div class="invalid-feedback">
+                                        Zip code required.
+                                    </div>
+
+                                </div>
+                                <!--Grid column-->
+
+                            </div>
+
+                            <hr class="mb-4">
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                        
+                    </form>
+
+                    <p> <pre> <a href="{% url 'core:account-profile' %}">    Back to your profile </a> </pre> </p>
+
+                </div>
+                <!--/.Card-->
+
+            </div>
+            <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+
+    </div>
+</main>
+<!--Main layout-->
+
+{% endblock content %}

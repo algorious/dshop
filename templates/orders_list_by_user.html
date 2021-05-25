@@ -1,0 +1,52 @@
+
+{% block content %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+$(function(){
+    $(".nav a").click(function(e){
+        e.preventDefault(); //To prevent the default anchor tag behaviour
+        var url = this.href;
+        $(".main").load(url);
+    });
+});
+
+</script>
+
+<h2 style="font-weight:bold;text-align:center">Orders List</h2>
+
+<div class="nav">
+  <table class="table">
+
+    <thead class="table-primary">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Order Date</th>
+        <th scope="col">Reference Code</th>
+        <th scope="col">Amount</th>
+        <th scope="col">View Details</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    {% if order_list %}
+      {% for order in order_list %}
+        <tr>
+          <th scope="row">{{ forloop.revcounter }}</th>
+          <td>{{ order.ordered_date }}</td>
+          <td>{{ order.ref_code }}</td>
+          <td>{{ order.payment.amount }}</td>
+          <td><a href="{{ order.get_absolute_url }}" style="color: #0065cc">Click here to view details</a></td>
+        </tr>
+      {% endfor %}
+    {% else %}
+      <p>You have no orders</p>
+    {% endif %} 
+    </tbody>
+
+  </table>
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,121 @@
+{# {% extends "base.html" %} #}
+
+{% block content %}
+
+<!--Main layout-->
+<main>
+    <div class="container">
+        {% if order_list %}
+        <div class="table-responsive text-nowrap">
+
+            <h2 style="font-weight:bold;text-align:center">These are your orders {{ user.username }}:</h2>
+            
+            <div class="row">
+                <div class="col">
+                    <table class="table">
+                        <thead class="table-primary">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Order Date</th>
+                                <th scope="col">Reference Code</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for order_item in order_list %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>{{ order_item.ordered_date }}</td>
+                                <td>{{ order_item.ref_code }}</td>
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col">
+                    <table class="table">
+                        <thead class="table-info">
+                            <tr>
+                                <th scope="col">Payment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for p in payment %}
+                            <tr>
+                                <td>{{ p.amount }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+              <h4 style="text-align:center">Orders details:</h4>
+
+            <div class="row">
+                <div class="col">
+                    <table class="table">
+                        <thead class="table-primary">
+                            <tr>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Order Date</th>
+                                <th scope="col">Order ID</th>                               
+                            </tr>
+                        </thead>
+                        <tbody>
+               
+                        {% for it in orderitems %}   
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ it.order.ordered_date }}</td> 
+                            <td>{{ it.order_id }}</td>    
+                        </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col">
+                    <table class="table">
+                        <thead class="table-info">
+                            <tr>    
+                                <th scope="col">Item Title</th>
+                                <th scope="col">Item price</th>
+                                <th scope="col">Item ID</th>
+                                <th scope="col">Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in orderitems %}
+                        <tr>                  
+                            <td>{{ i.orderitem.item.title }}</td>
+                            <td>{{ i.orderitem.item.price }}</td>
+                            <td>{{ i.orderitem.id }}</td>
+                            <td>{{ i.orderitem.quantity }}</td>    
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                           
+        </div>
+        {% else %}
+            <h2 style="font-weight:bold;text-align:center">You have no orders {{ user.username }}</h2>   
+        {% endif %} 
+
+        <tr>
+                <td colspan="5">
+                    <a class='btn btn-primary float-right' href='/'>Continue shopping</a>
+                </td>
+        </tr>     
+
+    </div>
+
+</main>
+<!--Main layout-->
+
+{% endblock content %}

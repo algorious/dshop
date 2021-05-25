@@ -1,0 +1,89 @@
+
+{% block content %}
+  <h4>Details for order: {{ order.id }}, Reference code: {{ object.ref_code }}</h4>
+  
+  {% if order.ordered %}
+  {% else %}
+    <h5><strong>This order has not been processed</strong></h5>
+    <p>
+    To process this order click on the button
+      <a class='btn btn-warning ml-2' href='/checkout/'>Proceed to checkout</a>
+    </p>
+  {% endif %} 
+
+  <p><strong>Date ordered:</strong> {{ order.ordered_date }}</p>  
+  {% if order.payment.amount %}
+  <p><strong>Total amount:</strong> {{ order.payment.amount }}</p>
+  <p><strong>Shipping address:</strong></p> 
+  <p>{{ order.shipping_address.street_address }}, Apt. {{ order.shipping_address.apartment_address }}, City: {{ order.shipping_address.city }}, 
+          Country: {{ order.shipping_address.country }}, Zip {{ order.shipping_address.zip }}</p>
+  <p><strong>Billiing address:</strong></p> 
+  <p>{{ order.billing_address.street_address }}, Apt. {{ order.billing_address.apartment_address }}, City: {{ order.billing_address.city }}, 
+          Country: {{ order.billing_address.country }}, Zip {{ order.billing_address.zip }}</p>
+  {% else %}
+  {% endif %}
+  
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Order Items</h4>
+
+    <dl>
+    {% for i in order.items_set.all %}
+ 
+        <dt>{{i.items_set.all.count}}</dt>
+        
+    {% endfor %}
+    </dl>
+
+  </div>
+
+  <!--Main layout-->
+<main>
+    <div style="margin-left:20px;margin-top:20px" class="container">
+        <div class="table-responsive text-nowrap">
+
+            <div class="row">
+                <div class="col">
+                    <table class="table">
+                        <thead class="table-primary">
+                            <tr>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Order Date</th>
+                                <th scope="col">Order ID</th>  
+                                <th scope="col">Item Title</th>
+                                <th scope="col">Item price</th>
+                                <th scope="col">Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+               
+                            {% for it in orderitems %}   
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td><img src={{ it.orderitem.item.image.url }} class="img-thumbnail" alt="" width="150" height="150"></td>
+                                <td>{{ it.order.ordered_date }}</td> 
+                                <td>{{ it.order_id }}</td>   
+                                <td>{{ it.orderitem.item.title }}</td> 
+                                <td>{{ it.orderitem.item.price }}</td>
+                                <td>{{ it.orderitem.quantity }}</td> 
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+                <tr>
+                  <td colspan="5">
+                      <a class='btn btn-primary float-right' href='/'>Continue shopping</a>
+                   </td>
+                </tr>   
+
+    </div>
+  </div>
+</main>
+
+{% endblock %}

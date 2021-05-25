@@ -1,0 +1,20 @@
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<form action="/upload/" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form|crispy }}
+  <!--{{ form.as_p }} -->
+  <button type="submit">Upload</button>
+</form>
+
+{% if img_obj %}
+  <h3>Succesfully uploaded : {{img_obj.title}}</h3>
+  <img src="{{ img_obj.image.url }}" alt="connect" style="max-height:300px">
+{% endif %}
+
+<p> <pre> <a href="{% url 'core:account-profile' %}">    Back to your profile </a> </pre> </p>
+
+{% endblock content %}
